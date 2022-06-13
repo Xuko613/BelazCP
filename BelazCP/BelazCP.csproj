@@ -53,6 +53,12 @@
     <Compile Include="Auth.Designer.cs">
       <DependentUpon>Auth.cs</DependentUpon>
     </Compile>
+    <Compile Include="CashCP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CashCP.Designer.cs">
+      <DependentUpon>CashCP.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainCP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Auth.resx">
       <DependentUpon>Auth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashCP.resx">
+      <DependentUpon>CashCP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainCP.resx">
       <DependentUpon>MainCP.cs</DependentUpon>

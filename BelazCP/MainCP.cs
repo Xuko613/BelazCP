@@ -28,5 +28,11 @@ namespace BelazCP
             auth.ID = null;
             auth.Show();
         }
+
+        private void Cash_Click(object sender, EventArgs e)
+        {
+            CashCP cash = new CashCP();
+            cash.Show();
+        }
     }
 }

@@ -75,6 +75,7 @@
             this.Cash.TabIndex = 3;
             this.Cash.Text = "Касса";
             this.Cash.UseVisualStyleBackColor = true;
+            this.Cash.Click += new System.EventHandler(this.Cash_Click);
             // 
             // Exit
             // 

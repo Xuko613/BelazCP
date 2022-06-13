@@ -38,7 +38,7 @@ namespace BelazCP
             string Pass = PassText.Text.Trim();
             try
             {
-                string query = $"SELECT FirstName FROM Users WHERE ID = {ID} AND Pass = '{Pass}'";
+                string query = $"SELECT Имя FROM Users WHERE (ID = {ID}) AND (Пароль = '{Pass}')";
                 OleDbCommand command = new OleDbCommand(query, MyConn);
                 if (command.ExecuteScalar() != null)
                 {
