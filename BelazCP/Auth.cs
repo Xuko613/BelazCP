@@ -14,7 +14,7 @@ namespace BelazCP
     public partial class Auth : Form
     {
         public static string connStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=DataBase.accdb;";
-        private OleDbConnection MyConn;
+        public static OleDbConnection MyConn;
 
         public  string ID;
 
