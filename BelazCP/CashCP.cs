@@ -13,6 +13,7 @@ namespace BelazCP
 {
     public partial class CashCP : Form
     {
+        AddBill addBill = new AddBill();
         public CashCP()
         {
             InitializeComponent();
@@ -52,8 +53,9 @@ namespace BelazCP
                 {
                     label1.ForeColor = Color.Black;
                 }
-                label1.Text = $"{cash.ToString().Trim()} BYN";
+                label1.Text = $"{cash.ToString("C").Trim()}";
             }
+            Cash_Resize();
         }
         private void Cash_Resize()
         {
@@ -68,6 +70,10 @@ namespace BelazCP
 
         private void CashCP_Activated(object sender, EventArgs e)
         {
+            if (addBill.DialogResult == DialogResult.OK)
+            {
+                Cash_Refresh();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -100,7 +106,6 @@ namespace BelazCP
 
         private void новаяЗаписьF2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddBill addBill = new AddBill();
             addBill.ShowDialog();
         }
     }
