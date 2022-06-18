@@ -44,7 +44,6 @@ namespace BelazCP
                     {
                         if (row.Cells[1].Value != null && row.Cells[3].Value != null && row.Cells[4].Value != null)
                         {
-                            dataGridView1.Sort(dataGridView1.Columns["Column3"], ListSortDirection.Ascending);
                             decimal bmoney = decimal.Parse(row.Cells[0].Value.ToString().Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.GetCultureInfo("be-BY"));
                             string btype = row.Cells[1].Value.ToString().Trim();
                             DateTime bdate = DateTime.Parse(row.Cells[2].Value.ToString().Trim());

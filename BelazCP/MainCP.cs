@@ -32,7 +32,13 @@ namespace BelazCP
         private void Cash_Click(object sender, EventArgs e)
         {
             CashCP cash = new CashCP();
-            cash.Show();
+            cash.ShowDialog();
+        }
+
+        private void Stock_Click(object sender, EventArgs e)
+        {
+            StockCP stock = new StockCP();
+            stock.ShowDialog();
         }
     }
 }
