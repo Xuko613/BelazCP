@@ -42,15 +42,19 @@ namespace BelazCP
                 {
                     if (row.Index < dataGridView1.Rows.Count - 1)
                     {
-                        decimal bmoney = decimal.Parse(row.Cells[0].Value.ToString().Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.GetCultureInfo("en-US"));
-                        MessageBox.Show(bmoney.ToString());
-                        string btype = row.Cells[1].Value.ToString().Trim();
-                        DateTime bdate = DateTime.Parse(row.Cells[2].Value.ToString().Trim());
-                        string botv = row.Cells[3].Value.ToString().Trim();
-                        string breason = row.Cells[4].Value.ToString().Trim();
-                        string query = $"insert into Cash ([Сумма], [Тип], [Дата], [Ответственный], [Причина]) values ({bmoney},'{btype}','{bdate}','{botv}','{breason}')";
-                        OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
-                        com.ExecuteNonQuery();
+                        if (row.Cells[1].Value != null && row.Cells[3].Value != null && row.Cells[4].Value != null)
+                        {
+                            dataGridView1.Sort(dataGridView1.Columns["Column3"], ListSortDirection.Ascending);
+                            decimal bmoney = decimal.Parse(row.Cells[0].Value.ToString().Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.GetCultureInfo("be-BY"));
+                            string btype = row.Cells[1].Value.ToString().Trim();
+                            DateTime bdate = DateTime.Parse(row.Cells[2].Value.ToString().Trim());
+                            string botv = row.Cells[3].Value.ToString().Trim();
+                            string breason = row.Cells[4].Value.ToString().Trim();
+                            string query = $"insert into Cash ([Сумма], [Тип], [Дата], [Ответственный], [Комментрарий]) values ('{bmoney}','{btype}','{bdate}','{botv}','{breason}')";
+                            OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+                            com.ExecuteNonQuery();
+                        }
+                        else { throw new Exception(); }
                     }
                 }
                 MessageBox.Show("Все записи внесены в базу данных.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -76,13 +80,12 @@ namespace BelazCP
             while (reader.Read())
             {
                 Column4.Items.Add(reader[0].ToString().Trim());
-                comboBox2.Items.Add(reader[0].ToString().Trim());
             }
         }
         private void Column1_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8 && number != 46)
+            if (!Char.IsDigit(number) && number != 8 && number != 44)
             {
                 e.Handled = true;
             }
@@ -119,6 +122,17 @@ namespace BelazCP
                 oDateTimePicker.TextChanged += new EventHandler(dateTimePicker_OnTextChange);
                 oDateTimePicker.Visible = true;
             }
+        }
+
+        private void dataGridView1_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["Column3"].Value = DateTime.Today.ToShortDateString();
+        }
+
+        private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Неверное значение";
+            e.ThrowException = false;
         }
     }
 }
