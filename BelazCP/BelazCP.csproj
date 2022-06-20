@@ -65,6 +65,12 @@
     <Compile Include="CashCP.Designer.cs">
       <DependentUpon>CashCP.cs</DependentUpon>
     </Compile>
+    <Compile Include="HRCP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HRCP.Designer.cs">
+      <DependentUpon>HRCP.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainCP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CashCP.resx">
       <DependentUpon>CashCP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HRCP.resx">
+      <DependentUpon>HRCP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainCP.resx">
       <DependentUpon>MainCP.cs</DependentUpon>

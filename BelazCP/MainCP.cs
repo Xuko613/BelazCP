@@ -40,5 +40,16 @@ namespace BelazCP
             StockCP stock = new StockCP();
             stock.ShowDialog();
         }
+
+        private void HR_Click(object sender, EventArgs e)
+        {
+            HRCP hrcp = new HRCP();
+            hrcp.ShowDialog();
+        }
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

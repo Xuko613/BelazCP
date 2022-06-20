@@ -32,7 +32,7 @@
             this.Stock = new System.Windows.Forms.Button();
             this.Cash = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Settings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // HR
@@ -44,6 +44,7 @@
             this.HR.TabIndex = 0;
             this.HR.Text = "Кадры";
             this.HR.UseVisualStyleBackColor = true;
+            this.HR.Click += new System.EventHandler(this.HR_Click);
             // 
             // Stock
             // 
@@ -78,22 +79,23 @@
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // button1
+            // Settings
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(12, 115);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(238, 100);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Информация";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Settings.Location = new System.Drawing.Point(12, 115);
+            this.Settings.Name = "Settings";
+            this.Settings.Size = new System.Drawing.Size(238, 100);
+            this.Settings.TabIndex = 5;
+            this.Settings.Text = "Настройки";
+            this.Settings.UseVisualStyleBackColor = true;
+            this.Settings.Click += new System.EventHandler(this.Settings_Click);
             // 
             // MainCP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 227);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Settings);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.Cash);
             this.Controls.Add(this.Stock);
@@ -114,6 +116,6 @@
         private System.Windows.Forms.Button Stock;
         private System.Windows.Forms.Button Cash;
         private System.Windows.Forms.Button Exit;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Settings;
     }
 }
