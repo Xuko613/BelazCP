@@ -27,11 +27,11 @@ namespace BelazCP
         }
         public void Bill_Refresh()
         {
-            dataGridView1.Columns[0].Width = dataGridView1.Width / 5;
-            dataGridView1.Columns[1].Width = dataGridView1.Width / 5;
-            dataGridView1.Columns[2].Width = dataGridView1.Width / 5;
-            dataGridView1.Columns[3].Width = dataGridView1.Width / 5;
-            dataGridView1.Columns[4].Width = dataGridView1.Width / 5;
+            for (int i = 0; i < dataGridView1.Columns.Count; i++)
+            {
+                dataGridView1.Columns[0].Width = dataGridView1.Width / dataGridView1.Columns.Count-1;
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)

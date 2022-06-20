@@ -14,13 +14,14 @@ namespace BelazCP
     public partial class CashCP : Form
     {
         AddBill addBill = new AddBill();
+        string query;
         public CashCP()
         {
             InitializeComponent();
         } 
         private void Cash_Refresh()
         {
-            string query = "SELECT * FROM Cash";
+            query = "SELECT * FROM Cash";
             OleDbDataAdapter dataadapter = new OleDbDataAdapter(query, Auth.MyConn);
             DataSet ds = new DataSet();
             dataadapter.Fill(ds, "Cash_table");
@@ -90,12 +91,10 @@ namespace BelazCP
         }
         private void Cash_Resize()
         {
-            dataGridView1.Columns[0].Width = dataGridView1.Width / 6;
-            dataGridView1.Columns[1].Width = dataGridView1.Width / 6;
-            dataGridView1.Columns[2].Width = dataGridView1.Width / 6;
-            dataGridView1.Columns[3].Width = dataGridView1.Width / 6;
-            dataGridView1.Columns[4].Width = dataGridView1.Width / 6;
-            dataGridView1.Columns[5].Width = dataGridView1.Width / 6;
+            for (int i = 0; i < dataGridView1.Columns.Count; i++)
+            {
+                dataGridView1.Columns[i].Width = dataGridView1.Width / dataGridView1.Columns.Count+1;
+            }
         }
         private void CashCP_Activated(object sender, EventArgs e)
         {
@@ -136,6 +135,5 @@ namespace BelazCP
         {
             Cash_Calc();
         }
-
     }
 }
