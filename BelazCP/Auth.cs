@@ -66,5 +66,10 @@ namespace BelazCP
                 e.Handled = true;
             }
         }
+
+        private void Auth_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
