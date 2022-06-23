@@ -13,7 +13,7 @@ namespace BelazCP
 {
     public partial class Auth : Form
     {
-        public static string connStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=DataBase.accdb;";
+        public static string connStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=DB.accdb;";
         public static OleDbConnection MyConn;
 
         public  string ID;
