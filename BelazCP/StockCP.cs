@@ -114,8 +114,8 @@ namespace BelazCP
                 query = $"Delete from Stock where [Код объекта] like {dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value}";
                 OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
                 com.ExecuteNonQuery();
-                Stock_Refresh();
                 MessageBox.Show("Запись удалена", "Удаление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Stock_Refresh();
             }
         }
 

@@ -14,6 +14,7 @@ namespace BelazCP
     public partial class HRCP : Form
     {
         string query;
+        DateTimePicker oDateTimePicker;
         public HRCP()
         {
             InitializeComponent();
@@ -77,11 +78,11 @@ namespace BelazCP
                 dateTimePicker1.Value = DateTime.Parse(dataGridView1.SelectedCells[5].Value.ToString()); //Дата рождения
                 textBox3.Text = $"{dataGridView1.SelectedCells[6].Value}"; //Пол
                 textBox4.Text = $"{dataGridView1.SelectedCells[0].Value}"; //ID
-                textBox5.Text= $"{dataGridView1.SelectedCells[4].Value}"; //Должность  
+                textBox5.Text = $"{dataGridView1.SelectedCells[4].Value}"; //Должность  
                 //Доступ к кадрам (ДКК)
                 query = $"Select ДКК FROM Rights where ID like {dataGridView1.SelectedCells[0].Value}";
                 com = new OleDbCommand(query, Auth.MyConn);
-                checkBox1.Checked= bool.Parse(com.ExecuteScalar().ToString());
+                checkBox1.Checked = bool.Parse(com.ExecuteScalar().ToString());
                 //Доступ к складу (ДКС)
                 query = $"Select ДКС FROM Rights where ID like {dataGridView1.SelectedCells[0].Value}";
                 com = new OleDbCommand(query, Auth.MyConn);
@@ -96,12 +97,13 @@ namespace BelazCP
 
         private void Child_Refresh()
         {
-            query = $"SELECT [Фамилия], [Имя], [Отчество], [Дата рождения], [Пол] FROM Childs Where ID like {dataGridView1.SelectedCells[0].Value}";
+            query = $"SELECT [ID], [Фамилия], [Имя], [Отчество], [Дата рождения], [Пол] FROM Childs Where W_ID like {dataGridView1.SelectedCells[0].Value}";
             OleDbDataAdapter dataadapter = new OleDbDataAdapter(query, Auth.MyConn);
             DataSet dsc = new DataSet();
             dataadapter.Fill(dsc, "Child_table");
             dataGridView2.DataSource = dsc;
             dataGridView2.DataMember = "Child_table";
+            dataGridView2.Columns[0].ReadOnly = true;
             Stuff_Resize();
         }
 
@@ -114,7 +116,7 @@ namespace BelazCP
         {
             сохранитьToolStripMenuItem.Enabled = true;
             textBox2.ReadOnly = false;
-            textBox3.ReadOnly=false;
+            textBox3.ReadOnly = false;
             dateTimePicker1.Enabled = true;
             textBox5.ReadOnly = false;
             checkBox1.Enabled = true;
@@ -125,6 +127,64 @@ namespace BelazCP
         private void button2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void dataGridView2_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            query = $"INSERT INTO Childs ([W_ID]) VALUES ('{dataGridView1.SelectedCells[0].Value}')";
+            OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+            com.ExecuteNonQuery();
+        }
+
+        private void dataGridView2_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Удалить запись? Все изменения будут потеряны!", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                query = $"Delete from Childs where [ID] like {dataGridView2.SelectedCells[0].Value}";
+                OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+                com.ExecuteNonQuery();
+                MessageBox.Show("Запись удалена", "Удаление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        private void dataGridView2_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells[4].Value = DateTime.Today.ToShortDateString();
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        void oDateTimePicker_CloseUp(object sender, EventArgs e)
+        {
+            oDateTimePicker.Visible = false;
+        }
+        private void dateTimePicker_OnTextChange(object sender, EventArgs e)
+        {
+            dataGridView2.CurrentCell.Value = oDateTimePicker.Text.ToString();
+        }
+
+        private void save_changes()
+        {
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                query = $"UPDATE Childs SET [Фамилия] = '{row.Cells[1].Value}'," +
+            $" [Имя] = '{row.Cells[2].Value}'," +
+            $" [Отчество] = '{row.Cells[3].Value}'," +
+            $" [Дата рождения] = '{row.Cells[4].Value}'," +
+            $" [Пол]= '{row.Cells[5].Value}' Where [ID] like {row.Cells[0].Value}";
+                OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+                com.ExecuteNonQuery();
+            }
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            save_changes();
         }
     }
 }

@@ -8,13 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
-using BelazCP.Properties;
 
 namespace BelazCP
 {
     public partial class Auth : Form
     {
-        public static string connStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=DB.accdb;";
+       
         public static OleDbConnection MyConn;
 
         public  string ID;
@@ -23,7 +22,8 @@ namespace BelazCP
         {
             InitializeComponent();
 
-            MyConn = new OleDbConnection(connStr);
+           // MyConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0; Data Source = DB.mdb;");
+            MyConn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source= DB.mdb");
             MyConn.Open();
         }
 
