@@ -16,6 +16,8 @@ namespace BelazCP
         string query;
         DateTimePicker oDateTimePicker;
         int SR = 0;
+        public static string FIO;
+        public static string SID;
         public HRCP()
         {
             InitializeComponent();
@@ -44,6 +46,10 @@ namespace BelazCP
             for (int i = 0; i < dataGridView3.Columns.Count; i++)
             {
                 dataGridView3.Columns[i].Width = dataGridView3.Width / dataGridView3.Columns.Count + 1;
+            }
+            for (int i = 0; i < dataGridView4.Columns.Count; i++)
+            {
+                dataGridView4.Columns[i].Width = dataGridView4.Width / dataGridView4.Columns.Count + 1;
             }
         }
 
@@ -78,26 +84,33 @@ namespace BelazCP
         {
             if (dataGridView1.SelectedRows.Count == 1)
             {
-                OleDbCommand com;
-                textBox2.Text = $"{dataGridView1.SelectedCells[1].Value} {dataGridView1.SelectedCells[2].Value} {dataGridView1.SelectedCells[3].Value}"; //ФИО
-                dateTimePicker1.Value = DateTime.Parse(dataGridView1.SelectedCells[5].Value.ToString()); //Дата рождения
-                textBox3.Text = $"{dataGridView1.SelectedCells[6].Value}"; //Пол
-                textBox4.Text = $"{dataGridView1.SelectedCells[0].Value}"; //ID
-                textBox5.Text = $"{dataGridView1.SelectedCells[4].Value}"; //Должность  
-                //Доступ к кадрам (ДКК)
-                query = $"Select ДКК FROM Rights where ID like {dataGridView1.SelectedCells[0].Value}";
-                com = new OleDbCommand(query, Auth.MyConn);
-                checkBox1.Checked = bool.Parse(com.ExecuteScalar().ToString());
-                //Доступ к складу (ДКС)
-                query = $"Select ДКС FROM Rights where ID like {dataGridView1.SelectedCells[0].Value}";
-                com = new OleDbCommand(query, Auth.MyConn);
-                checkBox2.Checked = bool.Parse(com.ExecuteScalar().ToString());
-                //Доступ к банку (ДКБ)
-                query = $"Select ДКБ FROM Rights where ID like {dataGridView1.SelectedCells[0].Value}";
-                com = new OleDbCommand(query, Auth.MyConn);
-                checkBox3.Checked = bool.Parse(com.ExecuteScalar().ToString());
-                Child_Refresh();
-                WorkTime_Refresh();
+                try
+                {
+                    OleDbCommand com;
+                    textBox2.Text = $"{dataGridView1.SelectedCells[1].Value} {dataGridView1.SelectedCells[2].Value} {dataGridView1.SelectedCells[3].Value}"; //ФИО
+                    FIO = textBox2.Text;
+                    dateTimePicker1.Value = DateTime.Parse(dataGridView1.SelectedCells[5].Value.ToString()); //Дата рождения
+                    textBox3.Text = $"{dataGridView1.SelectedCells[6].Value}"; //Пол
+                    textBox4.Text = $"{dataGridView1.SelectedCells[0].Value}"; //ID
+                    SID = textBox4.Text;
+                    textBox5.Text = $"{dataGridView1.SelectedCells[4].Value}"; //Должность  
+                                                                               //Доступ к кадрам (ДКК)
+                    query = $"Select ДКК FROM Rights where ID like {dataGridView1.SelectedCells[0].Value}";
+                    com = new OleDbCommand(query, Auth.MyConn);
+                    checkBox1.Checked = bool.Parse(com.ExecuteScalar().ToString());
+                    //Доступ к складу (ДКС)
+                    query = $"Select ДКС FROM Rights where ID like {dataGridView1.SelectedCells[0].Value}";
+                    com = new OleDbCommand(query, Auth.MyConn);
+                    checkBox2.Checked = bool.Parse(com.ExecuteScalar().ToString());
+                    //Доступ к банку (ДКБ)
+                    query = $"Select ДКБ FROM Rights where ID like {dataGridView1.SelectedCells[0].Value}";
+                    com = new OleDbCommand(query, Auth.MyConn);
+                    checkBox3.Checked = bool.Parse(com.ExecuteScalar().ToString());
+                    Child_Refresh();
+                    WorkTime_Refresh();
+                    Reprimands_Refresh();
+                }
+                catch { }
             }
         }
 
@@ -114,6 +127,23 @@ namespace BelazCP
             dataGridView3.Columns[2].ReadOnly = true;
             dataGridView3.Columns[3].ReadOnly = true;
             Stuff_Resize();
+        }
+        private void Reprimands_Refresh()
+        {
+            query = $"SELECT [Причина], [Дата], [Действует до] FROM Reprimands Where W_ID like '{dataGridView1.SelectedCells[0].Value}'";
+            OleDbDataAdapter dataadapter = new OleDbDataAdapter(query, Auth.MyConn);
+            DataSet dsRT = new DataSet();
+            dataadapter.Fill(dsRT, "Reprimands_table");
+            dataGridView4.DataSource = dsRT;
+            dataGridView4.DataMember = "Reprimands_table";
+            Stuff_Resize();
+            foreach (DataGridViewRow row in dataGridView4.Rows)
+            {
+                if (DateTime.Parse(row.Cells[2].Value.ToString()) > DateTime.Now)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
         }
 
         private void Child_Refresh()
@@ -148,11 +178,13 @@ namespace BelazCP
             dataGridView2.Enabled = true;
             dataGridView3.Enabled = true;
             изменитьToolStripMenuItem.Enabled = false;
+            button5.Enabled = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            AddUser addUser = new AddUser();
+            addUser.ShowDialog();
         }
 
 
@@ -199,7 +231,6 @@ namespace BelazCP
                 oDateTimePicker.CloseUp += new EventHandler(oDateTimePicker_CloseUp);
                 oDateTimePicker.TextChanged += new EventHandler(dateTimePicker_OnTextChange);
                 oDateTimePicker.Visible = true;
-                
             }
         }
         void oDateTimePicker_CloseUp(object sender, EventArgs e)
@@ -267,6 +298,7 @@ namespace BelazCP
                 dataGridView2.Enabled = false;
                 dataGridView3.Enabled = false;
                 изменитьToolStripMenuItem.Enabled = true;
+                button5.Enabled = false;
 
             }
             catch { }
@@ -276,6 +308,40 @@ namespace BelazCP
         private void button6_Click(object sender, EventArgs e)
         {
             Edit_Save();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            AddRep addRep = new AddRep();
+            addRep.ShowDialog();
+            if (addRep.DialogResult == DialogResult.OK)
+            {
+                Reprimands_Refresh();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ChangePass changePass = new ChangePass();
+            changePass.ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells[0].Value.ToString() != Auth.ID.ToString()) {
+                DialogResult result = MessageBox.Show("Удалить запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    query = $"Delete from Users where [ID] like {dataGridView1.SelectedCells[0].Value}";
+                    OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+                    com.ExecuteNonQuery();
+                    MessageBox.Show("Запись удалена", "Удаление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете удалить себя!","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            }
         }
     }
 }

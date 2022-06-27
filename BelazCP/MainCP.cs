@@ -13,7 +13,7 @@ namespace BelazCP
 {
     public partial class MainCP : Form
     {
-        Auth auth = new Auth();
+
         public MainCP()
         {
             InitializeComponent();
@@ -21,8 +21,8 @@ namespace BelazCP
 
         private void Exit_Click(object sender, EventArgs e)
         {
-           string query = $"UPDATE WorkTime SET [Закончил] = '{DateTime.Now}'," +
-                $" [Отработал (часов)] = '{(DateTime.Now-Auth.StartWork).TotalHours}' where [ID] like '{Auth.WorkID}'";
+            string query = $"UPDATE WorkTime SET [Закончил] = '{DateTime.Now}'," +
+                 $" [Отработал (часов)] = '{(DateTime.Now - Auth.StartWork).TotalHours}' where [ID] like '{Auth.WorkID}'";
             OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
             com.ExecuteNonQuery();
             this.Close();
@@ -30,31 +30,69 @@ namespace BelazCP
 
         private void MainCP_FormClosing(object sender, FormClosingEventArgs e)
         {
-            auth.ID = null;
+            Auth auth = new Auth();
+            Auth.ID = null;
             auth.Show();
         }
 
         private void Cash_Click(object sender, EventArgs e)
         {
-            CashCP cash = new CashCP();
-            cash.ShowDialog();
+            string query = $"SELECT ДКБ FROM Rights WHERE ID like '{Auth.ID}'";
+            OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+            if (bool.Parse(com.ExecuteScalar().ToString()))
+            {
+                CashCP cash = new CashCP();
+                cash.ShowDialog();
+
+            }
+            else
+            {
+                MessageBox.Show("Нет прав для просмотра этого раздела", "Нет прав", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void Stock_Click(object sender, EventArgs e)
         {
-            StockCP stock = new StockCP();
-            stock.ShowDialog();
+            string query = $"SELECT ДКС FROM Rights WHERE ID like '{Auth.ID}'";
+            OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+            if (bool.Parse(com.ExecuteScalar().ToString()))
+            {
+                StockCP stock = new StockCP();
+                stock.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Нет прав для просмотра этого раздела", "Нет прав", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void HR_Click(object sender, EventArgs e)
         {
-            HRCP hrcp = new HRCP();
-            hrcp.ShowDialog();
+            string query = $"SELECT ДКК FROM Rights WHERE ID like '{Auth.ID}'";
+            OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+            if (bool.Parse(com.ExecuteScalar().ToString()))
+            {
+                HRCP hrcp = new HRCP();
+                hrcp.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Нет прав для просмотра этого раздела", "Нет прав", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void Settings_Click(object sender, EventArgs e)
         {
+            string query = $"SELECT ДКН FROM Rights WHERE ID like '{Auth.ID}'";
+            OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+            if (bool.Parse(com.ExecuteScalar().ToString()))
+            {
 
+            }
+            else
+            {
+                MessageBox.Show("Нет прав для просмотра этого раздела", "Нет прав", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
 }

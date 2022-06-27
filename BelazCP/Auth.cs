@@ -18,7 +18,7 @@ namespace BelazCP
         string query;
         public static string WorkID;
         public static DateTime StartWork;
-        public  string ID;
+        public static string ID;
 
         public Auth()
         {
