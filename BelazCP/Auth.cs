@@ -13,22 +13,25 @@ namespace BelazCP
 {
     public partial class Auth : Form
     {
-       
-        public static OleDbConnection MyConn;
 
+        public static OleDbConnection MyConn;
+        string query;
+        public static string WorkID;
+        public static DateTime StartWork;
         public  string ID;
 
         public Auth()
         {
             InitializeComponent();
 
-           // MyConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0; Data Source = DB.mdb;");
+            // MyConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0; Data Source = DB.mdb;");
             MyConn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source= DB.mdb");
             MyConn.Open();
         }
 
         private void Auth_FormClosing(object sender, FormClosingEventArgs e)
         {
+
             MyConn.Close();
             Application.Exit();
         }
@@ -39,11 +42,16 @@ namespace BelazCP
             string Pass = PassText.Text.Trim();
             try
             {
-                string query = $"SELECT Имя FROM Users WHERE (ID = {ID}) AND (Пароль = '{Pass}')";
+                query = $"SELECT Имя FROM Users WHERE (ID = {ID}) AND (Пароль = '{Pass}')";
                 OleDbCommand command = new OleDbCommand(query, MyConn);
                 if (command.ExecuteScalar() != null)
                 {
                     MessageBox.Show($"Добро пожаловать, {command.ExecuteScalar()}!", "Приветсвие", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    WorkID = DateTime.Now.ToString("yyyyMMddhhss");
+                    StartWork = DateTime.Now;
+                    query = $"INSERT INTO WorkTime ([ID], [W_ID], [Приступил]) VALUES ('{WorkID}', '{ID}', '{StartWork}')";
+                    OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+                    com.ExecuteNonQuery();
                     this.Hide();
                     MainCP mainCP = new MainCP();
                     mainCP.Show();
@@ -62,7 +70,7 @@ namespace BelazCP
         private void IDText_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8) 
+            if (!Char.IsDigit(number) && number != 8)
             {
                 e.Handled = true;
             }

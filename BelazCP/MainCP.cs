@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.OleDb;
 
 namespace BelazCP
 {
@@ -20,6 +21,10 @@ namespace BelazCP
 
         private void Exit_Click(object sender, EventArgs e)
         {
+           string query = $"UPDATE WorkTime SET [Закончил] = '{DateTime.Now}'," +
+                $" [Отработал (часов)] = '{(DateTime.Now-Auth.StartWork).TotalHours}' where [ID] like '{Auth.WorkID}'";
+            OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+            com.ExecuteNonQuery();
             this.Close();
         }
 
