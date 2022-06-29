@@ -145,6 +145,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddBill";
+            this.ShowIcon = false;
             this.Text = "Добавление записи в кассу";
             this.Activated += new System.EventHandler(this.AddBill_Activated);
             this.Load += new System.EventHandler(this.AddBill_Load);

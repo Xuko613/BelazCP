@@ -15,6 +15,7 @@ namespace BelazCP
     public partial class AddBill : Form
     {
         DateTimePicker oDateTimePicker;
+        int SR;
         public AddBill()
         {
             InitializeComponent();
@@ -60,9 +61,10 @@ namespace BelazCP
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            catch
+            catch (Exception ex)
             {
                 MessageBox.Show("Не корректно введены данные!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Auth.report += ex.ToString();
             }
         }
 
@@ -96,7 +98,7 @@ namespace BelazCP
         }
         private void dateTimePicker_OnTextChange(object sender, EventArgs e)
         {
-            dataGridView1.CurrentCell.Value = oDateTimePicker.Text.ToString();
+            dataGridView1.SelectedRows[SR].Cells[Column3.Index].Value = oDateTimePicker.Text.ToString();
         }
 
         private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -109,8 +111,9 @@ namespace BelazCP
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == Column3.Index)
+            if (e.ColumnIndex == Column3.Index && e.RowIndex == dataGridView1.CurrentCell.RowIndex)
             {
+                SR = dataGridView1.CurrentCell.RowIndex;
                 oDateTimePicker = new DateTimePicker();
                 dataGridView1.Controls.Add(oDateTimePicker);
                 oDateTimePicker.Format = DateTimePickerFormat.Short;
@@ -130,6 +133,7 @@ namespace BelazCP
 
         private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
+            Auth.report += e.ToString();
             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Неверное значение";
             e.ThrowException = false;
         }

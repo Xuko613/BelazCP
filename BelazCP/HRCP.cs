@@ -64,7 +64,10 @@ namespace BelazCP
             {
                 Stuff_Resize();
             }
-            catch { }
+            catch (Exception ex) 
+            {
+                Auth.report += ex.ToString();
+            }
         }
 
 
@@ -110,7 +113,10 @@ namespace BelazCP
                     WorkTime_Refresh();
                     Reprimands_Refresh();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Auth.report += ex.ToString();
+                }
             }
         }
 
@@ -256,7 +262,10 @@ namespace BelazCP
                     OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
                     com.ExecuteNonQuery();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Auth.report += ex.ToString();
+                }
             }
         }
         private void Edit_Save()
@@ -301,7 +310,10 @@ namespace BelazCP
                 button5.Enabled = false;
 
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Auth.report += ex.ToString();
+            }
             Child_Save();
             Stuff_Refresh();
         }

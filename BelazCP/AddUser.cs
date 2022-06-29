@@ -69,7 +69,10 @@ namespace BelazCP
                     dataGridView2.Columns[i].Width = dataGridView2.Width / dataGridView2.Columns.Count + 1;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Auth.report += ex.ToString();
+            }
         }
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)

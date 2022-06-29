@@ -87,7 +87,8 @@ namespace BelazCP
             OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
             if (bool.Parse(com.ExecuteScalar().ToString()))
             {
-
+                Settings set = new Settings();
+                set.ShowDialog();
             }
             else
             {

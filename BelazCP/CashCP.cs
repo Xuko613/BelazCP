@@ -114,9 +114,9 @@ namespace BelazCP
             {
                 Cash_Resize();
             }
-            catch
+            catch (Exception ex)
             {
-
+                Auth.report += ex.ToString();
             }
         }
         private void CashCP_Load(object sender, EventArgs e)

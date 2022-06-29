@@ -19,6 +19,7 @@ namespace BelazCP
         public static string WorkID;
         public static DateTime StartWork;
         public static string ID;
+        public static string report;
 
         public Auth()
         {
@@ -31,7 +32,6 @@ namespace BelazCP
 
         private void Auth_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             MyConn.Close();
             Application.Exit();
         }
@@ -61,9 +61,10 @@ namespace BelazCP
                     MessageBox.Show("Неверный ID или пароль!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                report += ex.ToString();
             }
         }
 

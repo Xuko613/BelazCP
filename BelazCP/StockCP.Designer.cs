@@ -196,6 +196,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StockCP";
+            this.ShowIcon = false;
             this.Text = "Белаз - панель управления [Склад]";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StockCP_FormClosing);
             this.Load += new System.EventHandler(this.StockCP_Load);

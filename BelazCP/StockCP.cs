@@ -74,7 +74,10 @@ namespace BelazCP
             {
                 Stock_Resize();
             }
-            catch { }
+            catch (Exception ex) 
+            {
+                Auth.report += ex.ToString();
+            }
         }
 
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
