@@ -19,7 +19,7 @@ namespace BelazCP
             InitializeComponent();
 
             // MyConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0; Data Source = DB.mdb;");
-            MyConn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source= DB.mdb");
+            MyConn = new OleDbConnection($"Provider=Microsoft.Jet.OLEDB.4.0;Data Source = {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/BelazCP/DB.mdb");
             MyConn.Open();
         }
 
@@ -43,8 +43,8 @@ namespace BelazCP
                     WorkID = DateTime.Now.ToString("yyyyMMddhhss");
                     StartWork = DateTime.Now;
                     query = $"INSERT INTO WorkTime ([ID], [W_ID], [Приступил]) VALUES ('{WorkID}', '{ID}', '{StartWork}')";
-                    OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
-                    com.ExecuteNonQuery();
+                    command = new OleDbCommand(query, MyConn);
+                    command.ExecuteNonQuery();
                     this.Hide();
                     MainCP mainCP = new MainCP();
                     mainCP.Show();
@@ -60,7 +60,6 @@ namespace BelazCP
                 report += ex.ToString();
             }
         }
-
         private void IDText_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;

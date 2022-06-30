@@ -102,6 +102,8 @@ namespace BelazCP
         {
             AddBill addBill = new AddBill();
             addBill.ShowDialog();
+            if(addBill.DialogResult==DialogResult.OK)
+            { Cash_Refresh(); }
         }
         private void CashCP_Resize(object sender, EventArgs e)
         {

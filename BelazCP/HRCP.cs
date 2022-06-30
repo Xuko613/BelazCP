@@ -220,6 +220,10 @@ namespace BelazCP
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (dataGridView2.Controls.Contains(oDateTimePicker) != false)
+            {
+                dataGridView2.Controls.Remove(oDateTimePicker);
+            }
             if (e.ColumnIndex == 4 && e.RowIndex == dataGridView2.CurrentCell.RowIndex)
             {
                 SR = e.RowIndex;

@@ -17,8 +17,8 @@ namespace BelazCP
             if (MessageBox.Show("Все данные будут потеряны", "Вы уверены?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Auth.MyConn.Close();
-                File.Copy("DB.mdb", $"DB.mdb.old [{DateTime.Now:dd.MM.yyyy}]");
-                File.WriteAllBytes($"{System.Environment.CurrentDirectory}/DB.mdb", Resources.DB);
+                File.Copy($"{System.Environment.SpecialFolder.ApplicationData}/BelazCP/DB.mdb", $"{System.Environment.SpecialFolder.ApplicationData}/BelazCP/DB.mdb.old [{DateTime.Now:dd.MM.yyyy}]");
+                File.WriteAllBytes($"{System.Environment.SpecialFolder.ApplicationData}/BelazCP/DB.mdb", Resources.DB);
                 foreach (var process in System.Diagnostics.Process.GetProcessesByName("BelazCP"))
                 {
                     process.Kill();

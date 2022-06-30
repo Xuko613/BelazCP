@@ -92,7 +92,7 @@ namespace BelazCP
         }
         private void dateTimePicker_OnTextChange(object sender, EventArgs e)
         {
-            dataGridView1.SelectedRows[SR].Cells[Column3.Index].Value = oDateTimePicker.Text.ToString();
+            dataGridView1.Rows[SR].Cells[Column3.Index].Value = oDateTimePicker.Text.ToString();
         }
 
         private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -101,10 +101,15 @@ namespace BelazCP
             {
                 e.Control.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
             }
+            else { e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress); }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (dataGridView1.Controls.Contains(oDateTimePicker) != false)
+            {
+                dataGridView1.Controls.Remove(oDateTimePicker);
+            }
             if (e.ColumnIndex == Column3.Index && e.RowIndex == dataGridView1.CurrentCell.RowIndex)
             {
                 SR = dataGridView1.CurrentCell.RowIndex;
@@ -118,6 +123,7 @@ namespace BelazCP
                 oDateTimePicker.TextChanged += new EventHandler(dateTimePicker_OnTextChange);
                 oDateTimePicker.Visible = true;
             }
+
         }
 
         private void dataGridView1_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -130,6 +136,11 @@ namespace BelazCP
             Auth.report += e.ToString();
             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Неверное значение";
             e.ThrowException = false;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
