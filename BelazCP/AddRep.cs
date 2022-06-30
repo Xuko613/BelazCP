@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Windows.Forms;
 
 namespace BelazCP
 {
@@ -24,7 +17,7 @@ namespace BelazCP
             label4.Text = HRCP.FIO;
             dt = DateTime.Now;
             label3.Text = dt.ToString("f");
-            dateTimePicker1.MinDate= dt;
+            dateTimePicker1.MinDate = dt;
         }
 
         private void button2_Click(object sender, EventArgs e)

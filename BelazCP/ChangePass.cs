@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Windows.Forms;
 
 namespace BelazCP
 {
@@ -32,11 +25,11 @@ namespace BelazCP
                 query = $"UPDATE Users SET [Пароль] = '{textBox2.Text}' where [ID] like {HRCP.SID}";
                 OleDbCommand cmd = new OleDbCommand(query, Auth.MyConn);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Пароль успешно изменен","Успех",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Пароль успешно изменен", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Ошибка смены пароля","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка смены пароля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

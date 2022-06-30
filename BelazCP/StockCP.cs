@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Windows.Forms;
 
 namespace BelazCP
 {
@@ -74,7 +68,7 @@ namespace BelazCP
             {
                 Stock_Resize();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Auth.report += ex.ToString();
             }

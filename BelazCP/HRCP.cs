@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace BelazCP
 {
@@ -64,7 +59,7 @@ namespace BelazCP
             {
                 Stuff_Resize();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Auth.report += ex.ToString();
             }
@@ -340,7 +335,8 @@ namespace BelazCP
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedCells[0].Value.ToString() != Auth.ID.ToString()) {
+            if (dataGridView1.SelectedCells[0].Value.ToString() != Auth.ID.ToString())
+            {
                 DialogResult result = MessageBox.Show("Удалить запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
@@ -352,7 +348,7 @@ namespace BelazCP
             }
             else
             {
-                MessageBox.Show("Вы не можете удалить себя!","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                MessageBox.Show("Вы не можете удалить себя!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }
