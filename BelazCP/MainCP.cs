@@ -14,15 +14,15 @@ namespace BelazCP
 
         private void Exit_Click(object sender, EventArgs e)
         {
-            string query = $"UPDATE WorkTime SET [Закончил] = '{DateTime.Now}'," +
-                 $" [Отработал (часов)] = '{(DateTime.Now - Auth.StartWork).TotalHours}' where [ID] like '{Auth.WorkID}'";
-            OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
-            com.ExecuteNonQuery();
             this.Close();
         }
 
         private void MainCP_FormClosing(object sender, FormClosingEventArgs e)
         {
+            string query = $"UPDATE WorkTime SET [Закончил] = '{DateTime.Now}'," +
+     $" [Отработал (часов)] = '{(DateTime.Now - Auth.StartWork).TotalHours}' where [ID] like '{Auth.WorkID}'";
+            OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+            com.ExecuteNonQuery();
             Auth auth = new Auth();
             Auth.ID = null;
             auth.Show();

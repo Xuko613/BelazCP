@@ -355,5 +355,11 @@ namespace BelazCP
                 MessageBox.Show("Вы не можете удалить себя!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddUser addUser = new AddUser();
+            addUser.ShowDialog();
+        }
     }
 }

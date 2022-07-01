@@ -43,10 +43,12 @@ namespace BelazCP
         {
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
-                query = $"INSERT INTO Childs ([W_ID], [Фамилия], [Имя], [Отчество], [Дата рождения], [Пол]) " +
-                    $"VALUES ('{textBox4.Text}', '{row.Cells[0].Value}', '{row.Cells[1].Value}', '{row.Cells[2].Value}', '{row.Cells[3].Value}','{row.Cells[4].Value}')";
-                OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
-                com.ExecuteNonQuery();
+                if (row.Cells[0].Value!=null || row.Cells[0].Value.ToString().Trim() != "") {
+                    query = $"INSERT INTO Childs ([W_ID], [Фамилия], [Имя], [Отчество], [Дата рождения], [Пол]) " +
+                        $"VALUES ('{textBox4.Text}', '{row.Cells[0].Value}', '{row.Cells[1].Value}', '{row.Cells[2].Value}', '{row.Cells[3].Value}','{row.Cells[4].Value}')";
+                    OleDbCommand com = new OleDbCommand(query, Auth.MyConn);
+                    com.ExecuteNonQuery();
+                }
             }
         }
 
