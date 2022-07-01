@@ -262,7 +262,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BelazCP"
         "ProductCode" = "8:{532D5C2C-50D1-48FA-9FBC-D18B45EE8192}"
-        "PackageCode" = "8:{21523BC6-385B-4279-97B9-656E00D94F9A}"
+        "PackageCode" = "8:{42F98E34-7E69-4329-9B39-7E3323CD1D54}"
         "UpgradeCode" = "8:{C7691FC4-11AB-4F55-A2A2-B4FAFD574FD3}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

@@ -18,11 +18,16 @@ namespace BelazCP
         {
             InitializeComponent();
 
-            // MyConn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0; Data Source = DB.mdb;");
-            MyConn = new OleDbConnection($"Provider=Microsoft.Jet.OLEDB.4.0;Data Source = {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/BelazCP/DB.mdb");
-            MyConn.Open();
+            if (Environment.Is64BitOperatingSystem)
+            {
+                 MyConn = new OleDbConnection($"Provider=Microsoft.ACE.OLEDB.12.0;Data Source = {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/BelazCP/DB.mdb");
+            }
+            else
+            {
+                MyConn = new OleDbConnection($"Provider=Microsoft.Jet.OLEDB.4.0;Data Source = {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/BelazCP/DB.mdb");
+            }
+                MyConn.Open();
         }
-
         private void Auth_FormClosing(object sender, FormClosingEventArgs e)
         {
             MyConn.Close();
@@ -35,7 +40,7 @@ namespace BelazCP
             string Pass = PassText.Text.Trim();
             try
             {
-                query = $"SELECT Имя FROM Users WHERE (ID = {ID}) AND (Пароль = '{Pass}')";
+                query = $"SELECT Имя FROM Users WHERE (ID like '{ID}') AND (Пароль like '{Pass}')";
                 OleDbCommand command = new OleDbCommand(query, MyConn);
                 if (command.ExecuteScalar() != null)
                 {
@@ -67,11 +72,6 @@ namespace BelazCP
             {
                 e.Handled = true;
             }
-        }
-
-        private void Auth_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -47,7 +47,6 @@
             this.label1.Size = new System.Drawing.Size(109, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Старый пароль:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -57,7 +56,6 @@
             this.label2.Size = new System.Drawing.Size(103, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "Новый пароль:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -67,7 +65,6 @@
             this.label3.Size = new System.Drawing.Size(65, 16);
             this.label3.TabIndex = 2;
             this.label3.Text = "Ещё раз:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // textBox1
             // 
@@ -76,7 +73,6 @@
             this.textBox1.PasswordChar = '•';
             this.textBox1.Size = new System.Drawing.Size(219, 22);
             this.textBox1.TabIndex = 3;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -85,8 +81,7 @@
             this.textBox2.PasswordChar = '•';
             this.textBox2.Size = new System.Drawing.Size(219, 22);
             this.textBox2.TabIndex = 4;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
+           // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(139, 95);
@@ -94,7 +89,6 @@
             this.textBox3.PasswordChar = '•';
             this.textBox3.Size = new System.Drawing.Size(219, 22);
             this.textBox3.TabIndex = 5;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // button1
             // 

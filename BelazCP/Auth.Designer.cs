@@ -101,7 +101,6 @@
             this.ShowIcon = false;
             this.Text = "Авторизация";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Auth_FormClosing);
-            this.Load += new System.EventHandler(this.Auth_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

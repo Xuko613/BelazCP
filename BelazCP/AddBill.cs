@@ -137,10 +137,5 @@ namespace BelazCP
             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Неверное значение";
             e.ThrowException = false;
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
