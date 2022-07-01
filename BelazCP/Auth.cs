@@ -17,15 +17,7 @@ namespace BelazCP
         public Auth()
         {
             InitializeComponent();
-
-            if (Environment.Is64BitOperatingSystem)
-            {
-                 MyConn = new OleDbConnection($"Provider=Microsoft.ACE.OLEDB.12.0;Data Source = {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/BelazCP/DB.mdb");
-            }
-            else
-            {
                 MyConn = new OleDbConnection($"Provider=Microsoft.Jet.OLEDB.4.0;Data Source = {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/BelazCP/DB.mdb");
-            }
                 MyConn.Open();
         }
         private void Auth_FormClosing(object sender, FormClosingEventArgs e)
